@@ -1,8 +1,8 @@
-![image](https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png)
+![image](https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png){: width="100" height="100"}
 
-# 여행계획 생성 및 공유 서비스(KTravel)
+# 여행계획 생성 및 공유 서비스(Kt-ravel)
 
-KTravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 수 있는 MSA 기반의 플랫폼입니다.
+Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 수 있는 MSA 기반의 플랫폼입니다.
 사용자는 각자 다른 계획을 만들고, 다른 사용자의 계획을 팔로우하며, 크레딧 시스템을 통해 활동할 수 있습니다.
 
 
