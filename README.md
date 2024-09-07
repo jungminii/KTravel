@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/15603058/119284989-fefe2580-bc7b-11eb-99ca-7a9e4183c16f.jpg)
+![image](https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png)
 
 # 여행계획 생성 및 공유 서비스(KTravel)
 
