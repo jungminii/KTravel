@@ -6,7 +6,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 사용자는 각자 다른 계획을 만들고, 다른 사용자의 계획을 팔로우하며, 크레딧 시스템을 통해 활동할 수 있습니다.
 
 
-# 목차
+## 목차
 
 - [예제 - 숙소예약](#---)
   - [서비스 시나리오](#서비스-시나리오)
@@ -25,9 +25,9 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
     - [무정지 재배포](#무정지-재배포)
   - [신규 개발 조직의 추가](#신규-개발-조직의-추가)
 
-# 서비스 시나리오
+## 서비스 시나리오
 
-## 기능적 요구사항
+### 기능적 요구사항
 
 1. **회원 가입(Sign up) 및 토큰(Token) 관리**   
    1.1 **회원 가입 및 로그인**  
@@ -83,7 +83,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 
 
 
-## 비기능적 요구사항 (Non-functional Requirements)
+### 비기능적 요구사항 (Non-functional Requirements)
 
 1. **트랜잭션 일관성 유지**    
    1.1 **데이터 일관성**  
@@ -148,7 +148,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
     1. 예약의 상태가 바뀔 때마다 메시지로 알림을 줄 수 있어야 한다  (Event driven)
 
 
-# 체크포인트
+## 체크포인트
 
 - 분석 설계
 
@@ -205,12 +205,12 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
     - Contract Test :  자동화된 경계 테스트를 통하여 구현 오류나 API 계약위반를 미리 차단 가능한가?
 
 
-# 분석/설계
+## 분석/설계
 
-## AS-IS 조직 (Horizontally-Aligned)
+### AS-IS 조직 (Horizontally-Aligned)
   ![image](https://user-images.githubusercontent.com/77129832/119316165-96ca3680-bcb1-11eb-9a91-f2b627890bab.png)
 
-## TO-BE 조직 (Vertically-Aligned)  
+### TO-BE 조직 (Vertically-Aligned)  
   ![image](https://user-images.githubusercontent.com/77129832/119315258-a09f6a00-bcb0-11eb-9940-c2a82f2f7d09.png)
 
 
