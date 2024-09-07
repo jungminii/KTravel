@@ -1,4 +1,4 @@
-![image](https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png){: width="100" height="100"}
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png" width="100" height="100"/>
 
 # 여행계획 생성 및 공유 서비스(Kt-ravel)
 
