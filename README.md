@@ -1,6 +1,12 @@
-<div style="display: flex; justify-content: center;">
-  <img src="https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png" width="330" height="240"/>
-</div>
+<style>
+  .center-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+
+<img src="https://raw.githubusercontent.com/KT-HOO/KTravel/main/img/Ktravel.png" width="330" height="240" class="center-img" />
 
 # 여행계획 생성 및 공유 서비스(Kt-ravel)
 
