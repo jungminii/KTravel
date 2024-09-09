@@ -201,15 +201,42 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 
 1. **아키텍처 설계**   
    1.1 **아키텍처**  
-   - 여행 계획 공유의 필요성 자료
+   - MSA 기반 설계:
+     - Spring Boot 마이크로서비스
+     - @@@@@ Vue.js 프론트엔드
+   - Azure 클라우드 서비스 활용:
+     - Azure Kubernetes Service (AKS)를 기반으로 한 컨테이너 오케스트레이션
+     - Azure API Management를 활용한 API Gateway 구현
+     - @@@@@ Azure Service Fabric을 이용한 서비스 디스커버리
+   - 주요 마이크로서비스 구조:
+     - 사용자(member) 서비스: 토큰(크레딧) 포함
+     - 여행 계획(plan) 서비스: AI 추천 포함
+     - 팔로우(follow) 서비스
+     - 알림(notification) 서비스
   
-   1.2 **T0-BE**  
-   - 설명란
-### AS-IS 조직 (Horizontally-Aligned)
-  ![image](https://user-images.githubusercontent.com/77129832/119316165-96ca3680-bcb1-11eb-9a91-f2b627890bab.png)
+   1.2 **데이터**  
+   - 서비스별 독립 데이터베이스 설계:
+     - @@@@@ Azure Database for PostgreSQL: 관계형 데이터 저장
+     - @@@@@ Azure Cosmos DB: 비관계형 데이터 저장
+   - JPA와 Hibernate를 활용한 ORM 구현
+   - 분산 트랜잭션을 위한 Saga 패턴 설계
 
-### TO-BE 조직 (Vertically-Aligned)  
-  ![image](https://user-images.githubusercontent.com/77129832/119315258-a09f6a00-bcb0-11eb-9940-c2a82f2f7d09.png)
+   1.3 **API**
+   - RESTful API 설계 원칙 준수
+   - Spring Boot 기반 API 엔드포인트 정의
+   - @@@@@ Swagger를 활용한 API 문서화
+   - @@@@@ API 버전 관리 전략 수립
+
+   1.4 **보안**
+   - Spring Security와 JWT를 이용한 인증/인가 처리
+   - @@@@@ Azure Key Vault를 활용한 비밀 정보 관리
+   - OAuth 2.0 기반 소셜 로그인 (Google, Naver) 구현
+   - HTTPS 적용을 통한 전송 계층 보안
+
+   1.5 **확장성 고려**
+   - 수평적 확장이 가능한 Stateless 아키텍처 설계
+   - @@@@@ Azure Cache for Redis를 활용한 분산 캐싱 전략
+   - @@@@@ Azure Service Bus를 이용한 비동기 메시징 시스템 설계
 
 
 2. **MSAEZ 모델링(Event Storming 결과)**
