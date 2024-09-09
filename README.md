@@ -21,6 +21,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 **III. [분석/설계](#분석설계)**    
  - 아키텍처 설계
  - MSAEZ 모델링(Event Storming 결과)
+ - OOOOO 아키텍처 다이어그램 도출
 
 **IIII. [구현:](#구현-)**    
  - [DDD 의 적용](#ddd-의-적용)
@@ -201,7 +202,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 
 ## III. 분석/설계
 
-1. **아키텍처 설계**   
+### 1. 아키텍처 설계     
    1.1 **아키텍처**  
    - MSA 기반 설계:
      - Spring Boot 마이크로서비스
@@ -241,7 +242,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
    - @@@@@ Azure Service Bus를 이용한 비동기 메시징 시스템 설계
 
 
-2. **MSAEZ 모델링(Event Storming 결과)**
+### 2. MSAEZ 모델링(Event Storming 결과)
 http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c872da3855fedf7f3ea9
 
 
@@ -302,7 +303,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
 - 나머지 모든 inter-microservice 트랜잭션: 예약상태, 후기처리 등 모든 이벤트에 대해 데이터 일관성의 시점이 크리티컬하지 않은 모든 경우가 대부분이라 판단, Eventual Consistency 를 기본으로 채택함.
 
 
-## OOOOO 아키텍처 다이어그램 도출
+### 3. OOOOO 아키텍처 다이어그램 도출
 
 ![image](https://user-images.githubusercontent.com/80744273/119319091-fc6bf200-bcb4-11eb-9dac-0995c84a82e0.png)
 
@@ -312,7 +313,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
     - 서브 도메인과 바운디드 컨텍스트의 분리:  각 팀의 KPI 별로 아래와 같이 관심 구현 스토리를 나눠가짐
 
 
-# IIII. 구현:
+# IIII. 구현
 
 **1. 개발 환경 구축**    
    - Spring Boot 개발 환경 설정
@@ -427,7 +428,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
    **2.3 API 동기식 호출(Sync) 과 Fallback 처리**
    **2.4 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트**
 
-# 운영
+## IIII. 운영
 
 
 ## CI/CD 설정
