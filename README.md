@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div style="display: flex; justify-content: center;">
   <img src="https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png" width="330" height="240"/>
 </div>
 
