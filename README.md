@@ -313,7 +313,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
     - 서브 도메인과 바운디드 컨텍스트의 분리:  각 팀의 KPI 별로 아래와 같이 관심 구현 스토리를 나눠가짐
 
 
-# IIII. 구현
+## IIII. 구현
 
 **1. 개발 환경 구축**    
    - Spring Boot 개발 환경 설정
@@ -428,10 +428,10 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
    **2.3 API 동기식 호출(Sync) 과 Fallback 처리**
    **2.4 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트**
 
-## IIII. 운영
+## V. 운영
 
 
-## CI/CD 설정
+### 1. CI/CD 설정
 
 각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD는 buildspec.yml을 이용한 AWS codebuild를 사용하였습니다.
 
@@ -442,41 +442,8 @@ kubectl apply -f eks-admin-service-account.yml
 ```
 ![codebuild(sa)](https://user-images.githubusercontent.com/38099203/119293259-ff52ec80-bc8c-11eb-8671-b9a226811762.PNG)
 ```
-Role 생성
-kubectl apply -f eks-admin-cluster-role-binding.yml
-```
-![codebuild(role)](https://user-images.githubusercontent.com/38099203/119293300-1abdf780-bc8d-11eb-9b07-ad173237efb1.PNG)
-```
-Token 확인
-kubectl -n kube-system get secret
-kubectl -n kube-system describe secret eks-admin-token-rjpmq
-```
-![codebuild(token)](https://user-images.githubusercontent.com/38099203/119293511-84d69c80-bc8d-11eb-99c7-e8929e6a41e4.PNG)
-```
-buildspec.yml 파일 
-마이크로 서비스 room의 yml 파일 이용하도록 세팅
-```
-![codebuild(buildspec)](https://user-images.githubusercontent.com/38099203/119283849-30292680-bc79-11eb-9f86-cbb715e74846.PNG)
 
-- codebuild 실행
-```
-codebuild 프로젝트 및 빌드 이력
-```
-![codebuild(프로젝트)](https://user-images.githubusercontent.com/38099203/119283851-315a5380-bc79-11eb-9b2a-b4522d22d009.PNG)
-![codebuild(로그)](https://user-images.githubusercontent.com/38099203/119283850-30c1bd00-bc79-11eb-9547-1ff1f62e48a4.PNG)
-
-- codebuild 빌드 내역 (Message 서비스 세부)
-
-![image](https://user-images.githubusercontent.com/31723044/119385500-2b0fba00-bd01-11eb-861b-cc31910ff945.png)
-
-- codebuild 빌드 내역 (전체 이력 조회)
-
-![image](https://user-images.githubusercontent.com/31723044/119385401-087da100-bd01-11eb-8b69-ce222e6bb71e.png)
-
-
-
-
-## 동기식 호출 / 서킷 브레이킹 / 장애격리
+### 2. 동기식 호출 / 서킷 브레이킹 / 장애격리
 
 * 서킷 브레이킹 프레임워크의 선택: istio 사용하여 구현함
 
@@ -485,7 +452,7 @@ codebuild 프로젝트 및 빌드 이력
 - DestinationRule 를 생성하여 circuit break 가 발생할 수 있도록 설정
 최소 connection pool 설정
 ```
-# destination-rule.yml
+#### destination-rule.yml
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
