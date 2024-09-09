@@ -1,4 +1,6 @@
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png" width="330" height="240"/>
+<div style="text-align: center;">
+  <img src="https://github.com/KT-HOO/KTravel/blob/main/img/Ktravel.png" width="330" height="240"/>
+</div>
 
 # 여행계획 생성 및 공유 서비스(Kt-ravel)
 
