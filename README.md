@@ -257,16 +257,13 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
 
 
    **2.1 이벤트 도출**
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0910_1.png" width="330" height="240" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0910_1.png" width="500" height="400" />
+    - 여행계획 생성 및 공유 서비스에 적합한 이벤트 도출
 
-   **2.2 부적격 이벤트 탈락**
+   **2.2 액터, 커맨드 부착**
 
-    - 과정중 도출된 잘못된 도메인 이벤트들을 걸러내는 작업을 수행함
-        - 등록시>RoomSearched, 예약시>RoomSelected :  UI 의 이벤트이지, 업무적인 의미의 이벤트가 아니라서 제외
 
-   2.3 액터, 커맨드 부착하여 읽기 좋게
-
-   2.4 어그리게잇으로 묶기
+   **2.3 어그리게잇으로 묶기**
 
     - Room, Reservation, Payment, Review 은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
 
