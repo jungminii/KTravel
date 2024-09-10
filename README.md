@@ -77,7 +77,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
    - 선택 입력 값: 세부 활동(details)
    
    **3.2 트랜드 기반 추천**  
-   - 현재 플랫폼에서 상위 팔로워의 여행 계획에 따라 여행 계획을 추천할 수 있어야 한다.
+   - 팔로우 수가 많은 상위 사용자의 여행 계획에 따라, 여행 계획을 추천할 수 있어야 한다.
    - 사용자의 팔로우 여부와 관련 없이 동작해야 한다.
    - 필수 입력 값: 목적지(location), 날짜(travelDate), 인원수(groupSize)
 
@@ -237,8 +237,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
      - 알림(notification) 서비스
   
    **1.2 데이터**  
-   - 서비스별 독립 데이터베이스 설계:
-     - Spring Boot H2 메모리 DB
+   - 서비스별 독립 데이터베이스 설계: Spring Boot H2 메모리 DB
    - JPA와 Hibernate를 활용한 ORM 구현
 
    **1.3 API**
@@ -258,6 +257,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
 
 
    **2.1 이벤트 도출**
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0910_1.png" width="330" height="240" />
 
    **2.2 부적격 이벤트 탈락**
 
