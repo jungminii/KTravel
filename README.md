@@ -332,7 +332,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 
    **1.7 완성된 1차 모형에 대한 비기능적 요구사항 검증**
 
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_06.png" width="500" height="400" />
 
     - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
     - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
@@ -346,9 +346,13 @@ https://dev.msaez.io/#/142835195/storming/travel
     - 숙소에 후기(review)를 남길 수 있다.(ok)
     - 전체적인 숙소에 대한 정보 및 예약 상태 등을 한 화면에서 확인 할 수 있다.(View-green Sticker 추가로 ok)
     
-   **1.8 모델 수정**
+   **1.8 모형 수정 및 최종 모형 도출**    
+   
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
 
-    - 1차 모형은 모든 요구사항을 충족하므로 수정 불필요.
+    -  사용자가 다른 사용자를 팔로우할 경우, 다른 사용자에게 시스템에서 알림을 발송한다.
+    'Follow' 리드모델 추가
+    - 수정한 모형으로 최종 모형 도출.
 
 <br/>
 
