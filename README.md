@@ -13,8 +13,8 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 ## 목차
 
 **I. [서비스 시나리오](#서비스-시나리오)**    
- - 기능적 요구사항(#기능적 요구사항(Functional Requirements))
- - 비기능적 요구사항(#비기능적 요구사항 (Non-functional Requirements))
+ - [기능적 요구사항](#기능적-요구사항functional-requirements)
+ - [비기능적 요구사항](#비기능적-요구사항-non-functional-requirements)
 
 **II. [체크포인트](#체크포인트)**    
  - [아키텍처 설계(IaaS)](#아키텍처 설계(IaaS))
