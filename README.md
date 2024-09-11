@@ -194,39 +194,32 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
     - Docker Hub로 이미지 배포를 하였는가?
     - Kubernetes 배포가 정상적으로 되었는가?
 
-## III. 분석/설계
+## III. 아키텍처 설계(IaaS)
 
-### 1. 아키텍처 설계     
-
-   **1.1 아키텍처**  
+### 1. 아키텍처     
    - MSA 기반 설계:
      - Spring Boot 마이크로서비스
      - Vue.js 프론트엔드
    - Azure 클라우드 서비스 활용:
      - Azure Kubernetes Service (AKS)를 기반으로 한 컨테이너 오케스트레이션
      - Azure API Management를 활용한 API Gateway 구현
-   - 주요 마이크로서비스 구조:
-     - 사용자(member) 서비스: 토큰(크레딧) 포함
-     - 여행 계획(plan) 서비스: AI 추천 포함
-     - 팔로우(follow) 서비스
-     - 알림(notification) 서비스
-  
-   **1.2 데이터**  
+    
+### 2. 데이터     
    - 서비스별 독립 데이터베이스 설계: Spring Boot H2 메모리 DB
    - JPA와 Hibernate를 활용한 ORM 구현
 
-   **1.3 API**
+### 3. API
    - RESTful API 설계 원칙 준수
    - Spring Boot 기반 API 엔드포인트 정의
 
-   **1.4 보안**
+### 4. 보안
    - OAuth 2.0 기반 소셜 로그인 (Google, Naver) 구현
 
-   **1.5 확장성 고려**
+### 5. 확장성 고려
    - @@@@@ Azure Cache for Redis를 활용한 분산 캐싱 전략
    - @@@@@ Azure Service Bus를 이용한 비동기 메시징 시스템 설계
 
-
+## IIII. Data Modeling/서비스 분리/설계(BIZ)
 ### 2. MSAEZ 모델링(Event Storming 결과)
 http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c872da3855fedf7f3ea9
 
@@ -293,6 +286,16 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
     - 'Recommendation' 서비스는 Kafka 외에 REST 기반 통신을 사용하여 다른 시스템과 데이터를 주고 받음
     - 호출 관계에서 Pub/Sub과 Req/Resp 구분
     - JPA를 통해 각 서비스는 각각의 데이터베이스(H2)를 관리
+
+### 2. 주요 마이크로서비스 구조
+     - 사용자(member) 서비스: 토큰(크레딧) 포함
+     - 여행 계획(plan) 서비스: AI 추천 포함
+     - 팔로우(follow) 서비스
+     - 알림(notification) 서비스
+     
+## V. MSA개발 및 개발관리
+## VI. 클라우드 배포
+
 
 ## IIII. 구현
 
