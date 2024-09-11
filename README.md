@@ -226,8 +226,10 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c872da3855fedf7f3ea9
 
    **1.1 이벤트 도출**
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0910_1.png" width="500" height="400" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0910_1.png" width="500" height="400" />    
+
     - 여행계획 생성 및 공유 서비스에 적합한 이벤트 도출
+    - 서비스에 적합하지 않은 이벤트 삭제
 
    **1.2 액터, 커맨드 부착**
 
@@ -236,24 +238,29 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
 
     - Room, Reservation, Payment, Review 은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
 
-   2.5 바운디드 컨텍스트로 묶기
+   **1.4 바운디드 컨텍스트로 묶기**
 
-    - 도메인 서열 분리 
-        - Core Domain:  reservation, room : 없어서는 안될 핵심 서비스이며, 연간 Up-time SLA 수준을 99.999% 목표, 배포주기는 reservation 의 경우 1주일 1회 미만, room 의 경우 1개월 1회 미만
-        - Supporting Domain:   message, viewpage : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
-        - General Domain:   payment : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 
+   **- 도메인 서열 분리**    
+        (1) Core Domain:     
+	  - reservation, room : 없어서는 안될 핵심 서비스이며, 연간 Up-time SLA 수준을 99.999% 목표, 배포주기는 reservation 의 경우 1주일 1회 미만, room 의 경우 1개월 1회 미만
+        (2) Supporting Domain:     
+	  - message, viewpage : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
+        (3) General Domain:     
+	  - payment : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 
 
-   2.6 폴리시 부착 (괄호는 수행주체, 폴리시 부착을 둘째단계에서 해놔도 상관 없음. 전체 연계가 초기에 드러남)
+   **1.5 Policy 부착** 
 
-   2.7 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
+   **1.6 Read Model 부착**
 
-   2.8 완성된 1차 모형
+   **1.7 Policy 이동 및 컨택스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)**
+
+   **1.8 완성된 1차 모형**
 
 ![image](https://user-images.githubusercontent.com/15603058/119305002-0edd3000-bca3-11eb-9cc0-1ba8b17f2432.png)
 
     - View Model 추가
 
-   2.9 1차 완성본에 대한 기능적/비기능적 요구사항을 커버하는지 검증
+   **1.9 1차 완성본에 대한 기능적/비기능적 요구사항 검증**
 
 ![image](https://user-images.githubusercontent.com/15603058/119306321-f110ca80-bca4-11eb-804c-a965220bad61.png)
 
@@ -266,7 +273,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
     - 숙소에 후기(review)를 남길 수 있다.(ok)
     - 전체적인 숙소에 대한 정보 및 예약 상태 등을 한 화면에서 확인 할 수 있다.(View-green Sticker 추가로 ok)
     
-   2.10 모델 수정
+   **2.10 모델 수정**
 
     
     - 수정된 모델은 모든 요구사항을 커버함.
