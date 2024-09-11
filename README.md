@@ -363,5 +363,5 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
 ### 3. 프론트엔드
 
 
-## VI. 클라우드 배포
+## VI. 클라우드(Azure) 배포
 
