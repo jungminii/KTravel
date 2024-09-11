@@ -203,6 +203,9 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
    - Azure 클라우드 서비스 활용:
      - Azure Kubernetes Service (AKS)를 기반으로 한 컨테이너 오케스트레이션
      - Azure API Management를 활용한 API Gateway 구현
+     - @@@@@ Elastic Load Balancer
+     - @@@@@ Auto Scaling
+     - @@@@@ VPC
     
 ### 2. 데이터     
    - 서비스별 독립 데이터베이스 설계: Spring Boot H2 메모리 DB
@@ -220,18 +223,18 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
    - @@@@@ Azure Service Bus를 이용한 비동기 메시징 시스템 설계
 
 ## IIII. Data Modeling/서비스 분리/설계(BIZ)
-### 2. MSAEZ 모델링(Event Storming 결과)
+
+### 1. MSAEZ 모델링(Event Storming 결과)
 http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c872da3855fedf7f3ea9
 
-
-   **2.1 이벤트 도출**
+   **1.1 이벤트 도출**
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0910_1.png" width="500" height="400" />
     - 여행계획 생성 및 공유 서비스에 적합한 이벤트 도출
 
-   **2.2 액터, 커맨드 부착**
+   **1.2 액터, 커맨드 부착**
 
 
-   **2.3 어그리게잇으로 묶기**
+   **1.3 어그리게잇으로 묶기**
 
     - Room, Reservation, Payment, Review 은 그와 연결된 command 와 event 들에 의하여 트랜잭션이 유지되어야 하는 단위로 그들 끼리 묶어줌
 
@@ -278,6 +281,11 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
 - 결제 완료시 Host 연결 및 예약처리:  reservation 에서 room 마이크로서비스로 예약요청이 전달되는 과정에 있어서 room 마이크로 서비스가 별도의 배포주기를 가지기 때문에 Eventual Consistency 방식으로 트랜잭션 처리함.
 - 나머지 모든 inter-microservice 트랜잭션: 예약상태, 후기처리 등 모든 이벤트에 대해 데이터 일관성의 시점이 크리티컬하지 않은 모든 경우가 대부분이라 판단, Eventual Consistency 를 기본으로 채택함.
 
+### 2. 주요 마이크로서비스 구조
+     - 사용자(member) 서비스: 토큰(크레딧) 포함
+     - 여행 계획(plan) 서비스: AI 추천 포함
+     - 팔로우(follow) 서비스
+     - 알림(notification) 서비스
 
 ### 3. 헥사고날 아키텍처 다이어그램 도출
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/kafka%20%ED%99%94%EB%A9%B4.png" width="650" height="380" />
@@ -287,17 +295,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
     - 호출 관계에서 Pub/Sub과 Req/Resp 구분
     - JPA를 통해 각 서비스는 각각의 데이터베이스(H2)를 관리
 
-### 2. 주요 마이크로서비스 구조
-     - 사용자(member) 서비스: 토큰(크레딧) 포함
-     - 여행 계획(plan) 서비스: AI 추천 포함
-     - 팔로우(follow) 서비스
-     - 알림(notification) 서비스
-     
 ## V. MSA개발 및 개발관리
-## VI. 클라우드 배포
-
-
-## IIII. 구현
 
 ### 1. 개발 환경 구축    
    - Spring Boot 개발 환경 설정
@@ -306,7 +304,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
    - @@@@@ Azure DevOps를 활용한 CI/CD 파이프라인 구축
 
 ### 2. 백엔드 마이크로서비스 개발
-분석/설계 단계에서 도출된 OOOOO 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 Spring Boot로 구현하였다.    
+이전 단계에서 도출된 OOOOO 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 Spring Boot로 구현하였다.    
 구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
 
 ```
@@ -340,33 +338,9 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
                       predicates:
                         - Path=/rooms/**, /reviews/**, /check/**
                     - id: reservation
-                      uri: http://reservation:8080
-                      predicates:
-                        - Path=/reservations/**
-                    - id: message
-                      uri: http://message:8080
-                      predicates:
-                        - Path=/messages/** 
-                    - id: viewpage
-                      uri: http://viewpage:8080
-                      predicates:
-                        - Path= /roomviews/**
-                  globalcors:
-                    corsConfigurations:
-                      '[/**]':
-                        allowedOrigins:
-                          - "*"
-                        allowedMethods:
-                          - "*"
-                        allowedHeaders:
-                          - "*"
-                        allowCredentials: true
 
-            server:
-              port: 8080            
             ```
 
-         
       2. Kubernetes용 Deployment.yaml 을 작성하고 Kubernetes에 Deploy를 생성함
           - Deployment.yaml 예시
           
@@ -384,357 +358,12 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
               selector:
                 matchLabels:
                   app: gateway
-              template:
-                metadata:
-                  labels:
-                    app: gateway
-                spec:
-                  containers:
-                    - name: gateway
-                      image: 247785678011.dkr.ecr.us-east-2.amazonaws.com/gateway:1.0
-                      ports:
-                        - containerPort: 8080
-            ```               
-            
-
-            ```
-            Deploy 생성
-            kubectl apply -f deployment.yaml
-            ```     
-          - Kubernetes에 생성된 Deploy. 확인
             
 ![image](https://user-images.githubusercontent.com/80744273/119321943-1d821200-bcb8-11eb-98d7-bf8def9ebf80.png)
 	    
-   **2.3 API 동기식 호출(Sync) 과 Fallback 처리**
-      1. 분석 단계에서의 조건 중 하나로 예약 시 숙소(room) 간의 예약 가능 상태 확인 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리하기로 하였다. 호출 프로토콜은 이미 앞서 Rest Repository 에 의해 노출되어있는 REST 서비스를 FeignClient 를 이용하여 호출하도록 한다. 또한 예약(reservation) -> 결제(payment) 서비스도 동기식으로 처리하기로 하였다.
-      - 룸, 결제 서비스를 호출하기 위하여 Stub과 (FeignClient) 를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현 
 
-   **2.3 API 동기식 호출(Sync) 과 Fallback 처리**
-   **2.4 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트**
-
-## V. 운영
+### 3. 프론트엔드
 
 
-### 1. CI/CD 설정
-
-각 구현체들은 각자의 source repository 에 구성되었고, 사용한 CI/CD는 buildspec.yml을 이용한 AWS codebuild를 사용하였습니다.
-
-- CodeBuild 프로젝트를 생성하고 AWS_ACCOUNT_ID, KUBE_URL, KUBE_TOKEN 환경 변수 세팅을 한다
-```
-SA 생성
-kubectl apply -f eks-admin-service-account.yml
-```
-![codebuild(sa)](https://user-images.githubusercontent.com/38099203/119293259-ff52ec80-bc8c-11eb-8671-b9a226811762.PNG)
-```
-
-### 2. 동기식 호출 / 서킷 브레이킹 / 장애격리
-
-* 서킷 브레이킹 프레임워크의 선택: istio 사용하여 구현함
-
-시나리오는 예약(reservation)--> 룸(room) 시의 연결을 RESTful Request/Response 로 연동하여 구현이 되어있고, 예약 요청이 과도할 경우 CB 를 통하여 장애격리.
-
-- DestinationRule 를 생성하여 circuit break 가 발생할 수 있도록 설정
-최소 connection pool 설정
-```
-#### destination-rule.yml
-apiVersion: networking.istio.io/v1alpha3
-kind: DestinationRule
-metadata:
-  name: dr-room
-  namespace: airbnb
-spec:
-  host: room
-  trafficPolicy:
-    connectionPool:
-      http:
-        http1MaxPendingRequests: 1
-        maxRequestsPerConnection: 1
-#    outlierDetection:
-#      interval: 1s
-#      consecutiveErrors: 1
-#      baseEjectionTime: 10s
-#      maxEjectionPercent: 100
-```
-
-* istio-injection 활성화 및 room pod container 확인
-
-```
-kubectl get ns -L istio-injection
-kubectl label namespace airbnb istio-injection=enabled 
-```
-
-![Circuit Breaker(istio-enjection)](https://user-images.githubusercontent.com/38099203/119295450-d6812600-bc91-11eb-8aad-46eeac968a41.PNG)
-
-![Circuit Breaker(pod)](https://user-images.githubusercontent.com/38099203/119295568-0cbea580-bc92-11eb-9d2b-8580f3576b47.PNG)
-
-
-* 부하테스터 siege 툴을 통한 서킷 브레이커 동작 확인:
-
-siege 실행
-
-```
-kubectl run siege --image=apexacme/siege-nginx -n airbnb
-kubectl exec -it siege -c siege -n airbnb -- /bin/bash
-```
-
-
-- 동시사용자 1로 부하 생성 시 모두 정상
-```
-siege -c1 -t10S -v --content-type "application/json" 'http://room:8080/rooms POST {"desc": "Beautiful House3"}'
-
-** SIEGE 4.0.4
-** Preparing 1 concurrent users for battle.
-The server is now under siege...
-HTTP/1.1 201     0.49 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.05 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     254 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     256 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     256 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     256 bytes ==> POST http://room:8080/rooms
-```
-
-- 동시사용자 2로 부하 생성 시 503 에러 168개 발생
-```
-siege -c2 -t10S -v --content-type "application/json" 'http://room:8080/rooms POST {"desc": "Beautiful House3"}'
-
-** SIEGE 4.0.4
-** Preparing 2 concurrent users for battle.
-The server is now under siege...
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 503     0.10 secs:      81 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.04 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.05 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.22 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.08 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.07 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 503     0.01 secs:      81 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 503     0.01 secs:      81 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     258 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 503     0.00 secs:      81 bytes ==> POST http://room:8080/rooms
-
-Lifting the server siege...
-Transactions:                   1904 hits
-Availability:                  91.89 %
-Elapsed time:                   9.89 secs
-Data transferred:               0.48 MB
-Response time:                  0.01 secs
-Transaction rate:             192.52 trans/sec
-Throughput:                     0.05 MB/sec
-Concurrency:                    1.98
-Successful transactions:        1904
-Failed transactions:             168
-Longest transaction:            0.03
-Shortest transaction:           0.00
-```
-
-- kiali 화면에 서킷 브레이크 확인
-
-![Circuit Breaker(kiali)](https://user-images.githubusercontent.com/38099203/119298194-7f7e4f80-bc97-11eb-8447-678eece29e5c.PNG)
-
-
-- 다시 최소 Connection pool로 부하 다시 정상 확인
-
-```
-** SIEGE 4.0.4
-** Preparing 1 concurrent users for battle.
-The server is now under siege...
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.00 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.00 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.00 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-
-:
-:
-
-Lifting the server siege...
-Transactions:                   1139 hits
-Availability:                 100.00 %
-Elapsed time:                   9.19 secs
-Data transferred:               0.28 MB
-Response time:                  0.01 secs
-Transaction rate:             123.94 trans/sec
-Throughput:                     0.03 MB/sec
-Concurrency:                    0.98
-Successful transactions:        1139
-Failed transactions:               0
-Longest transaction:            0.04
-Shortest transaction:           0.00
-
-```
-
-- 운영시스템은 죽지 않고 지속적으로 CB 에 의하여 적절히 회로가 열림과 닫힘이 벌어지면서 자원을 보호하고 있음을 보여줌.
-  virtualhost 설정과 동적 Scale out (replica의 자동적 추가,HPA) 을 통하여 시스템을 확장 해주는 후속처리가 필요.
-
-
-### 오토스케일 아웃
-앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다. 
-
-- room deployment.yml 파일에 resources 설정을 추가한다
-![Autoscale (HPA)](https://user-images.githubusercontent.com/38099203/119283787-0a038680-bc79-11eb-8d9b-d8aed8847fef.PNG)
-
-- room 서비스에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 설정은 CPU 사용량이 50프로를 넘어서면 replica 를 10개까지 늘려준다:
-```
-kubectl autoscale deployment room -n airbnb --cpu-percent=50 --min=1 --max=10
-```
-![Autoscale (HPA)(kubectl autoscale 명령어)](https://user-images.githubusercontent.com/38099203/119299474-ec92e480-bc99-11eb-9bc3-8c5246b02783.PNG)
-
-- 부하를 동시사용자 100명, 1분 동안 걸어준다.
-```
-siege -c100 -t60S -v --content-type "application/json" 'http://room:8080/rooms POST {"desc": "Beautiful House3"}'
-```
-- 오토스케일이 어떻게 되고 있는지 모니터링을 걸어둔다
-```
-kubectl get deploy room -w -n airbnb 
-```
-- 어느정도 시간이 흐른 후 (약 30초) 스케일 아웃이 벌어지는 것을 확인할 수 있다:
-![Autoscale (HPA)(모니터링)](https://user-images.githubusercontent.com/38099203/119299704-6a56f000-bc9a-11eb-9ba8-55e5978f3739.PNG)
-
-- siege 의 로그를 보아도 전체적인 성공률이 높아진 것을 확인 할 수 있다. 
-```
-Lifting the server siege...
-Transactions:                  15615 hits
-Availability:                 100.00 %
-Elapsed time:                  59.44 secs
-Data transferred:               3.90 MB
-Response time:                  0.32 secs
-Transaction rate:             262.70 trans/sec
-Throughput:                     0.07 MB/sec
-Concurrency:                   85.04
-Successful transactions:       15675
-Failed transactions:               0
-Longest transaction:            2.55
-Shortest transaction:           0.01
-```
-
-## 무정지 재배포
-
-* 먼저 무정지 재배포가 100% 되는 것인지 확인하기 위해서 Autoscaler 이나 CB 설정을 제거함
-
-```
-kubectl delete destinationrules dr-room -n airbnb
-kubectl label namespace airbnb istio-injection-
-kubectl delete hpa room -n airbnb
-```
-
-- seige 로 배포작업 직전에 워크로드를 모니터링 함.
-```
-siege -c100 -t60S -r10 -v --content-type "application/json" 'http://room:8080/rooms POST {"desc": "Beautiful House3"}'
-
-** SIEGE 4.0.4
-** Preparing 1 concurrent users for battle.
-The server is now under siege...
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.03 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.00 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.02 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-HTTP/1.1 201     0.01 secs:     260 bytes ==> POST http://room:8080/rooms
-
-```
-
-- 새버전으로의 배포 시작
-```
-kubectl set image ...
-```
-
-- seige 의 화면으로 넘어가서 Availability 가 100% 미만으로 떨어졌는지 확인
-
-```
-siege -c100 -t60S -r10 -v --content-type "application/json" 'http://room:8080/rooms POST {"desc": "Beautiful House3"}'
-
-
-Transactions:                   7732 hits
-Availability:                  87.32 %
-Elapsed time:                  17.12 secs
-Data transferred:               1.93 MB
-Response time:                  0.18 secs
-Transaction rate:             451.64 trans/sec
-Throughput:                     0.11 MB/sec
-Concurrency:                   81.21
-Successful transactions:        7732
-Failed transactions:            1123
-Longest transaction:            0.94
-Shortest transaction:           0.00
-
-```
-- 배포기간중 Availability 가 평소 100%에서 87% 대로 떨어지는 것을 확인. 원인은 쿠버네티스가 성급하게 새로 올려진 서비스를 READY 상태로 인식하여 서비스 유입을 진행한 것이기 때문. 이를 막기위해 Readiness Probe 를 설정함
-
-```
-# deployment.yaml 의 readiness probe 의 설정:
-```
-
-![probe설정](https://user-images.githubusercontent.com/38099203/119301424-71333200-bc9d-11eb-9f75-f8c98fce70a3.PNG)
-
-```
-kubectl apply -f kubernetes/deployment.yml
-```
-
-- 동일한 시나리오로 재배포 한 후 Availability 확인:
-```
-Lifting the server siege...
-Transactions:                  27657 hits
-Availability:                 100.00 %
-Elapsed time:                  59.41 secs
-Data transferred:               6.91 MB
-Response time:                  0.21 secs
-Transaction rate:             465.53 trans/sec
-Throughput:                     0.12 MB/sec
-Concurrency:                   99.60
-Successful transactions:       27657
-Failed transactions:               0
-Longest transaction:            1.20
-Shortest transaction:           0.00
-
-```
-
-배포기간 동안 Availability 가 변화없기 때문에 무정지 재배포가 성공한 것으로 확인됨.
-
-
-# Self-healing (Liveness Probe)
-- room deployment.yml 파일 수정 
-```
-콘테이너 실행 후 /tmp/healthy 파일을 만들고 
-90초 후 삭제
-livenessProbe에 'cat /tmp/healthy'으로 검증하도록 함
-```
-![deployment yml tmp healthy](https://user-images.githubusercontent.com/38099203/119318677-8ff0f300-bcb4-11eb-950a-e3c15feed325.PNG)
-
-- kubectl describe pod room -n airbnb 실행으로 확인
-```
-컨테이너 실행 후 90초 동인은 정상이나 이후 /tmp/healthy 파일이 삭제되어 livenessProbe에서 실패를 리턴하게 됨
-pod 정상 상태 일때 pod 진입하여 /tmp/healthy 파일 생성해주면 정상 상태 유지됨
-```
-
-![get pod tmp healthy](https://user-images.githubusercontent.com/38099203/119318781-a9923a80-bcb4-11eb-9783-65051ec0d6e8.PNG)
-![touch tmp healthy](https://user-images.githubusercontent.com/38099203/119319050-f118c680-bcb4-11eb-8bca-aa135c1e067e.PNG)
+## VI. 클라우드 배포
 
