@@ -201,7 +201,7 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
    **1.1 아키텍처**  
    - MSA 기반 설계:
      - Spring Boot 마이크로서비스
-     - @@@@@ Vue.js 프론트엔드
+     - Vue.js 프론트엔드
    - Azure 클라우드 서비스 활용:
      - Azure Kubernetes Service (AKS)를 기반으로 한 컨테이너 오케스트레이션
      - Azure API Management를 활용한 API Gateway 구현
@@ -287,9 +287,7 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
 
 
 ### 3. 헥사고날 아키텍처 다이어그램 도출
-
-![image](https://user-images.githubusercontent.com/80744273/119319091-fc6bf200-bcb4-11eb-9dac-0995c84a82e0.png)
-
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/kafka%20%ED%99%94%EB%A9%B4.png" width="500" height="400" />
 
     - Chris Richardson, MSA Patterns 참고하여 Inbound adaptor와 Outbound adaptor를 구분함
     - 호출관계에서 PubSub 과 Req/Resp 를 구분함
