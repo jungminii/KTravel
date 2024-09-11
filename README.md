@@ -406,6 +406,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 ```
    mvn spring-boot:run
 ```  
+   
    **2.1 CQRS**  
    - 예시 숙소(Room) 의 사용가능 여부, 리뷰 및 예약/결재 등 총 Status 에 대하여 고객(Customer)이 조회 할 수 있도록 CQRS 로 구현하였다.
      - 예시 room, review, reservation, payment 개별 Aggregate Status 를 통합 조회하여 성능 Issue 를 사전에 예방할 수 있다.
@@ -459,7 +460,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 	    
 
 ### 3. 프론트엔드
-- 내용
+-  
 
 <br/>
 <br/>
