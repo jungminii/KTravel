@@ -75,12 +75,12 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
    - 필수 입력 값: 목적지(location), 날짜(travelDate), 예산(budget), 인원수(groupSize)
    - 선택 입력 값: 세부 활동(details)
    
-   **3.2 트랜드 기반 추천(B type)**  **<span style="color: blue;">미구현</span>**
+   **3.2 트랜드 기반 추천(B type)**  **🚧 <span style="color: blue;">미구현</span>**
    - 팔로우 수가 많은 상위 사용자의 여행 계획에 따라, 여행 계획을 추천할 수 있어야 한다.
    - 사용자의 팔로우 여부와 관련 없이 동작해야 한다.
    - 필수 입력 값: 목적지(location), 날짜(travelDate), 인원수(groupSize)
 
-   **3.3 사용자 취향 기반 추천(C type)** **<span style="color: blue;">미구현</span>**
+   **3.3 사용자 취향 기반 추천(C type)** **🚧 <span style="color: blue;">미구현</span>**
    - 저장된 계획 중 내 취향에 맞는 계획을 '하트' 기능이 있어야 한다.
    - '내가 하트를 누른 계획'의 planId
    - 취향: 해당 plan의 details 정보 기반
