@@ -223,22 +223,25 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 ## IIII. Data Modeling/서비스 분리/설계(BIZ)
 
 ### 1. MSAEZ 모델링(Event Storming 결과)
-http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c872da3855fedf7f3ea9
+https://dev.msaez.io/#/142835195/storming/travel
 
-   **1.1 이벤트 도출**
+   **1.1 이벤트 도출**    
+   
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_01.png" width="500" height="400" />    
 
     - 여행계획 생성 및 공유 서비스에 적합한 이벤트 도출
     - 서비스에 적합하지 않은 이벤트 삭제
 
-   **1.2 액터 식별, 커맨드 부착**
+   **1.2 액터 식별, 커맨드 부착**    
+   
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_02.png" width="500" height="400" />    
 
     - 주요 액터로 'member' 식별
     - 각 서비스 영역에 해당하는 커맨드를 부착
     
-   **1.3 어그리게잇으로 묶기**
-<img src="" width="500" height="400" />  
+   **1.3 어그리게잇으로 묶기**    
+   
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_03.png" width="500" height="400" />  
 
     - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
     - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
