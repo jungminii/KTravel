@@ -225,29 +225,30 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 ### 1. MSAEZ 모델링(Event Storming 결과)
 https://dev.msaez.io/#/142835195/storming/travel
 
-   **1.1 이벤트 도출**    
+   **1.1 Evnet 도출**    
    
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_01.png" width="500" height="400" />    
 
     - 여행계획 생성 및 공유 서비스에 적합한 이벤트 도출
     - 서비스에 적합하지 않은 이벤트 삭제
 
-   **1.2 액터 식별, 커맨드 부착**    
+   **1.2 Actor 식별, Command 부착**    
    
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_02.png" width="500" height="400" />    
 
-    - 주요 액터로 'member' 식별
+    - 서비스의 주요 액터로 'member' 식별
     - 각 서비스 영역에 해당하는 커맨드를 부착
     
-   **1.3 어그리게잇으로 묶기**    
+   **1.3 Aggregate 으로 묶기**    
    
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_03.png" width="500" height="400" />  
 
     - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
     - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
 
-   **1.4 도메인 서열 분리, 바운디드 컨텍스트로 묶기**
-<img src="" width="500" height="400" />  
+   **1.4 Domain 서열 분리, Bounded Context로 묶기**    
+   
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_04.png" width="500" height="400" />  
   
         (1) Core Domain: 비즈니스의 핵심 가치를 제공하는 영역      
 	  - member    
@@ -278,21 +279,20 @@ https://dev.msaez.io/#/142835195/storming/travel
             - 배포주기는 필요에 따라 유연하게 조정하되 보통 한 달에 1회 정도로 운영
    
 
-   **1.5 Policy 부착** 
+   **1.5 Policy, Read Model 부착 및 컨택스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)**     
+   
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
 
-   **1.6 Read Model 부착**
+    - 비즈니스 처리 로직에 따라 폴리시를 배치
+    - 통신은 이벤트 기반의 비동기 방식(Pub/Sub)으로 설계
+    - 'notification'이 다른 서비스의 데이터를 빠르게 수집하여 활용할 수 있도록 리드모델 배치
 
-   **1.7 Policy 이동 및 컨택스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)**
-
-   **1.8 완성된 1차 모형**
+   **1.6 완성된 1차 모형에 대한 기능적/비기능적 요구사항 검증**
 
 ![image](https://user-images.githubusercontent.com/15603058/119305002-0edd3000-bca3-11eb-9cc0-1ba8b17f2432.png)
 
-    - View Model 추가
-
-   **1.9 1차 완성본에 대한 기능적/비기능적 요구사항 검증**
-
-![image](https://user-images.githubusercontent.com/15603058/119306321-f110ca80-bca4-11eb-804c-a965220bad61.png)
+    - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
+    - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
 
     - 호스트가 임대할 숙소를 등록/수정/삭제한다.(ok)
     - 고객이 숙소를 선택하여 예약한다.(ok)
@@ -303,18 +303,9 @@ https://dev.msaez.io/#/142835195/storming/travel
     - 숙소에 후기(review)를 남길 수 있다.(ok)
     - 전체적인 숙소에 대한 정보 및 예약 상태 등을 한 화면에서 확인 할 수 있다.(View-green Sticker 추가로 ok)
     
-   **2.10 모델 수정**
+   **1.7 모델 수정**
 
-    
-    - 수정된 모델은 모든 요구사항을 커버함.
-
-   2.11 비기능 요구사항에 대한 검증
-
-
-- 마이크로 서비스를 넘나드는 시나리오에 대한 트랜잭션 처리
-- 고객 예약시 결제처리:  결제가 완료되지 않은 예약은 절대 받지 않는다고 결정하여, ACID 트랜잭션 적용. 예약 완료시 사전에 방 상태를 확인하는 것과 결제처리에 대해서는 Request-Response 방식 처리
-- 결제 완료시 Host 연결 및 예약처리:  reservation 에서 room 마이크로서비스로 예약요청이 전달되는 과정에 있어서 room 마이크로 서비스가 별도의 배포주기를 가지기 때문에 Eventual Consistency 방식으로 트랜잭션 처리함.
-- 나머지 모든 inter-microservice 트랜잭션: 예약상태, 후기처리 등 모든 이벤트에 대해 데이터 일관성의 시점이 크리티컬하지 않은 모든 경우가 대부분이라 판단, Eventual Consistency 를 기본으로 채택함.
+    - 1차 모형은 모든 요구사항을 커버하므로 수정 불필요.
 
 ### 2. 주요 마이크로서비스 구조
      - 사용자(member) 서비스: 토큰(크레딧) 포함
