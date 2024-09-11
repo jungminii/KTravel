@@ -367,6 +367,16 @@ https://dev.msaez.io/#/142835195/storming/travel
   
 ## V. MSA개발 및 개발관리
 
+- 분산 트랜잭션 (Saga 패턴):
+  - Kt-ravel에서 각 마이크로서비스 간의 트랜잭션을 분산 처리할 수 있는 Saga 패턴을 구현해야 합니다. 예를 들어, 여행 계획을 생성하는 과정에서 여러 서비스가 연동되는 경우, 트랜잭션 실패 시 보상 트랜잭션(Compensation)이 필요합니다.
+- 보상 처리 (Compensation):
+  - 여행 계획이 실패하거나 수정할 경우 이를 원상 복구하는 보상 트랜잭션을 명확히 정의합니다. 보상 트랜잭션은 트랜잭션 흐름 중 오류가 발생할 때 실행됩니다.
+- 단일 진입점 (Gateway):
+  - 서비스의 트래픽 제어를 위해 API Gateway를 설정하여, 모든 클라이언트 요청이 단일 진입점을 통해 각 서비스로 라우팅될 수 있게 합니다. 이를 통해 인증 및 부하 분산을 효율적으로 처리합니다.
+- 분산 데이터 프로젝션:
+  - CQRS(Command Query Responsibility Segregation) 패턴을 도입해, 각 서비스의 데이터를 분산하여 저장하고, 읽기/쓰기 작업을 분리하여 데이터 일관성을 유지합니다.
+
+
 ### 1. 개발 환경 구축    
    - Spring Boot 개발 환경 설정
    - Vue.js 프로젝트 구조 설정 (Vue CLI 활용)
@@ -440,4 +450,9 @@ https://dev.msaez.io/#/142835195/storming/travel
 <br/>
   
 ## VI. 클라우드(Azure) 배포
-
+- Docker 이미지 생성 및 최적화:
+  - 각 마이크로서비스는 Docker 컨테이너로 패키징되어야 합니다. Docker 이미지는 최소화된 사이즈로 최적화되도록 관리합니다(예: 멀티 스테이지 빌드를 사용하여 불필요한 파일을 제거).
+- Docker Hub 배포:
+  - 생성한 Docker 이미지를 Docker Hub에 배포하여, 이를 Kubernetes나 다른 클라우드 플랫폼에서 사용할 수 있도록 준비합니다.
+- Kubernetes(K8S) 배포:
+  - Kubernetes를 활용하여 클러스터 환경에 마이크로서비스를 배포합니다. 특히 Azure Kubernetes Service(AKS) 또는 다른 클라우드 기반 Kubernetes 솔루션을 사용하여, 클러스터를 자동으로 확장하고 관리할 수 있는 설정을 적용합니다.
