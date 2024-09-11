@@ -296,8 +296,9 @@ https://dev.msaez.io/#/142835195/storming/travel
     - 다른 서비스들의 이벤트를 기반으로 알림을 처리하는 서비스
     - 연간 Up-time SLA 수준 99.50% 목표
     - 배포주기는 필요에 따라 유연하게 조정하되 보통 한 달에 1회 정도로 운영
-   
 
+<br/>
+   
    **1.5 Policy, Read Model 부착 및 컨택스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)**     
    
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
