@@ -34,7 +34,6 @@ Kt-ravel은 다양한 사용자들이 여행 계획을 생성하고 공유할 �
 
 **IIII. [Data Modeling/서비스 분리/설계(BIZ)](#data-modeling서비스-분리설계biz)**    
  - [MSAEZ 모델링(Event Storming 결과)](#msaezi-모델링event-storming-결과)
- - [주요 마이크로서비스 구조](#주요-마이크로서비스-구조)
  - [헥사고날 아키텍처 다이어그램 도출](#헥사고날-아키텍처-다이어그램-도출)
 
 **V. [MSA개발 및 개발관리](#msag개발-및-개발관리)**    
@@ -370,15 +369,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 
 <br/>
 
-### 2. 주요 마이크로서비스 구조
-     - 사용자(member) 서비스: 토큰(크레딧) 포함
-     - 여행 계획(plan) 서비스: AI 추천 포함
-     - 팔로우(follow) 서비스
-     - 알림(notification) 서비스
-
-<br/>
-
-### 3. 헥사고날 아키텍처 다이어그램 도출
+### 2. 헥사고날 아키텍처 다이어그램 도출
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_kafka.png" width="950" height="460" />
 
     - 각 서비스는 Kafka Publisher와 Kafka Listener를 통해 이벤트를 송신하고 수신 (느슨한 결합 및 확장성 확보)
