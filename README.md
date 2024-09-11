@@ -238,19 +238,27 @@ http://www.msaez.io/#/storming/QtpQtDiH1Je3wad2QxZUJVvnLzO2/share/6f36e16efdf8c8
     - 각 서비스 영역에 해당하는 커맨드를 부착
     
    **1.3 어그리게잇으로 묶기**
+<img src="" width="500" height="400" />  
 
     - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
     - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
 
    **1.4 바운디드 컨텍스트로 묶기**
+<img src="" width="500" height="400" />  
 
    **- 도메인 서열 분리**    
-        (1) Core Domain:     
-	  - reservation, room : 없어서는 안될 핵심 서비스이며, 연간 Up-time SLA 수준을 99.999% 목표, 배포주기는 reservation 의 경우 1주일 1회 미만, room 의 경우 1개월 1회 미만
-        (2) Supporting Domain:     
-	  - message, viewpage : 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
-        (3) General Domain:     
-	  - payment : 결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 
+        (1) Core Domain: 비즈니스의 핵심 가치를 제공하는 영역      
+	  - member
+            - 사용자 관리와 인증을 담당
+	    - 서비스의 근간이 되므로 연간 Up-time SLA 수준을 99.99% 목표
+	    - 보안과 안정성이 중요하여 배포주기는 한 달에 1회로 제한하며, 철저한 테스트 후 배포
+          - plan
+	    - 
+        (2) Supporting Domain: Core Domain을 지원하고 보완하는 영역    
+	  - follow, like
+            - 경쟁력을 내기위한 서비스이며, SLA 수준은 연간 60% 이상 uptime 목표, 배포주기는 각 팀의 자율이나 표준 스프린트 주기가 1주일 이므로 1주일 1회 이상을 기준으로 함.
+        (3) General Domain: 비즈니스에 필요하지만, 일반적인 기능만을 담당하는 영역    
+	  - notification : @@@@@결제서비스로 3rd Party 외부 서비스를 사용하는 것이 경쟁력이 높음 
 
    **1.5 Policy 부착** 
 
