@@ -379,7 +379,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 <br/>
 
 ### 3. 헥사고날 아키텍처 다이어그램 도출
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/kafka%20%ED%99%94%EB%A9%B4.png" width="950" height="460" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_kafka.png" width="950" height="460" />
 
     - 각 서비스는 Kafka Publisher와 Kafka Listener를 통해 이벤트를 송신하고 수신 (느슨한 결합 및 확장성 확보)
     - 'Recommendation' 서비스는 Kafka 외에 REST 기반 통신을 사용하여 다른 시스템과 데이터를 주고 받음
