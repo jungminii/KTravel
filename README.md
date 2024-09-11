@@ -289,7 +289,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 
    **1.6 완성된 1차 모형에 대한 기능적/비기능적 요구사항 검증**
 
-![image](https://user-images.githubusercontent.com/15603058/119305002-0edd3000-bca3-11eb-9cc0-1ba8b17f2432.png)
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
 
     - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
     - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
