@@ -269,16 +269,16 @@ https://dev.msaez.io/#/142835195/storming/travel
    
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_04.png" width="500" height="400" />  
   
-        (1) Core Domain: 비즈니스의 핵심 가치를 제공하는 영역      
-	  - member    
-            - 사용자 관리와 인증을 담당    
-	    - 서비스의 근간이 되므로 연간 Up-time SLA 수준을 99.99% 목표    
-	    - 보안과 안정성이 중요하여 배포주기는 한 달에 1회로 제한하며, 철저한 테스트 후 배포    
+(1) Core Domain: 비즈니스의 핵심 가치를 제공하는 영역      
+  - member    
+    - 사용자 관리와 인증을 담당    
+    - 서비스의 근간이 되므로 연간 Up-time SLA 수준을 99.99% 목표    
+    - 보안과 안정성이 중요하여 배포주기는 한 달에 1회로 제한하며, 철저한 테스트 후 배포    
      
-          - plan    
-	    - 여행 계획 생성 및 관리를 담당    
-     	    - 연간 Up-time SLA 수준 99.95% 목표    
-	    - 새로운 기능과 개선사항을 신속히 반영하기 위해 2주에 1회 배포를 목표    
+  - plan    
+    - 여행 계획 생성 및 관리를 담당    
+    - 연간 Up-time SLA 수준 99.95% 목표    
+    - 새로운 기능과 개선사항을 신속히 반영하기 위해 2주에 1회 배포를 목표    
      
         (2) Supporting Domain: Core Domain을 지원하고 보완하는 영역    
 	  - follow    
