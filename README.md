@@ -307,7 +307,23 @@ https://dev.msaez.io/#/142835195/storming/travel
     - 통신은 이벤트 기반의 비동기 방식(Pub/Sub)으로 설계
     - 'notification'이 다른 서비스의 데이터를 빠르게 수집하여 활용할 수 있도록 리드모델 배치
 
-   **1.6 완성된 1차 모형에 대한 기능적/비기능적 요구사항 검증**
+   **1.6 완성된 1차 모형에 대한 기능적 요구사항 검증**
+
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
+
+    - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
+    - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
+
+    - 호스트가 임대할 숙소를 등록/수정/삭제한다.(ok)
+    - 고객이 숙소를 선택하여 예약한다.(ok)
+    - 예약과 동시에 결제가 진행된다.(ok)
+    - 예약이 되면 예약 내역(Message)이 전달된다.(?)
+    - 고객이 예약을 취소할 수 있다.(ok)
+    - 예약 사항이 취소될 경우 취소 내역(Message)이 전달된다.(?)
+    - 숙소에 후기(review)를 남길 수 있다.(ok)
+    - 전체적인 숙소에 대한 정보 및 예약 상태 등을 한 화면에서 확인 할 수 있다.(View-green Sticker 추가로 ok)
+
+   **1.7 완성된 1차 모형에 대한 비기능적 요구사항 검증**
 
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
 
@@ -323,15 +339,19 @@ https://dev.msaez.io/#/142835195/storming/travel
     - 숙소에 후기(review)를 남길 수 있다.(ok)
     - 전체적인 숙소에 대한 정보 및 예약 상태 등을 한 화면에서 확인 할 수 있다.(View-green Sticker 추가로 ok)
     
-   **1.7 모델 수정**
+   **1.8 모델 수정**
 
-    - 1차 모형은 모든 요구사항을 커버하므로 수정 불필요.
+    - 1차 모형은 모든 요구사항을 충족하므로 수정 불필요.
+
+<br/>
 
 ### 2. 주요 마이크로서비스 구조
      - 사용자(member) 서비스: 토큰(크레딧) 포함
      - 여행 계획(plan) 서비스: AI 추천 포함
      - 팔로우(follow) 서비스
      - 알림(notification) 서비스
+
+<br/>
 
 ### 3. 헥사고날 아키텍처 다이어그램 도출
 <img src="https://github.com/KT-HOO/KTravel/blob/main/img/kafka%20%ED%99%94%EB%A9%B4.png" width="950" height="460" />
