@@ -458,14 +458,14 @@ https://dev.msaez.io/#/142835195/storming/travel
 **2.3 Kafka를 사용한 비동기 통신**  
      - 알람 (Notification) 생성과 여행 계획 AI 추천 생성 시에 Kafka를 사용한 비동기 통신이 이루어진다.
      - AI 추천 생성 요청 -> 사용자가 보유한 토큰 개수 확인 및 Decrease 작업 -> 실제로 외부 API와 통신하여 AI 추천 생성 완료
-     ![image](https://github.com/user-attachments/assets/4aa8692a-12c4-47c1-af1d-4343dbf54e91)
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/4aa8692a-12c4-47c1-af1d-4343dbf54e91">
      - 보유한 토큰양이 요구되는 토큰양보다 모자라면 TokenDecreasingFailed 이벤트가 발생하여 AI 추천 생성 Policy를 생성시키지 않도록 했다. (보상 트랜잭션)
 
 
 **2.4 OpenAi API 연결**  
      - create recommendation policy에서 OpenAI API와 연동하여 사용자가 작성한 여행 계획 (Plan)을 기반으로 AI의 심화된 추천 내용을 작성한다.
      - 후카츠 프롬프트 형식으로 추천 생성용 프롬프트를 작성하여 보다 나은 출력물을 기대할 수 있게끔 설계했다.
-     ![image](https://github.com/user-attachments/assets/aee012e0-6683-414c-9570-5ea6d306770a)
+     <img width="70%" alt="image" src="https://github.com/user-attachments/assets/aee012e0-6683-414c-9570-5ea6d306770a">
      - 성공적으로 AI 추천이 생성되면 RecommendationCreated 이벤트를 발생시켜 AI 추천 생성 트랜잭션을 마무리한다.
 
 <br/>
