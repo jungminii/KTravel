@@ -467,9 +467,18 @@ https://dev.msaez.io/#/142835195/storming/travel
 <br/>
   
 ## VI. 클라우드(Azure) 배포
+
 - Docker 이미지 생성 및 최적화:
   - 각 마이크로서비스는 Docker 컨테이너로 패키징되어야 합니다. Docker 이미지는 최소화된 사이즈로 최적화되도록 관리합니다(예: 멀티 스테이지 빌드를 사용하여 불필요한 파일을 제거).
 - Docker Hub 배포:
   - 생성한 Docker 이미지를 Docker Hub에 배포하여, 이를 Kubernetes나 다른 클라우드 플랫폼에서 사용할 수 있도록 준비합니다.
 - Kubernetes(K8S) 배포:
   - Kubernetes를 활용하여 클러스터 환경에 마이크로서비스를 배포합니다. 특히 Azure Kubernetes Service(AKS) 또는 다른 클라우드 기반 Kubernetes 솔루션을 사용하여, 클러스터를 자동으로 확장하고 관리할 수 있는 설정을 적용합니다.
+ 
+
+### 2. 여행 계획(Plan) 생성/수정/삭제, 추천(Recommendation)     
+   **2.1 여행 계획 생성**  
+   - 사용자는 목적지(location), 날짜(travelDate), 예산(budget), 인원수(groupSize), 세부 활동(details) 등의 상세 내용을 포함한 여행 계획을 생성할 수 있어야 한다.
+   - 목적지(lacation), 날짜(travelDate), 인원수(groupSize)는 필수적으로 입력되야 한다.
+     - 
+   
