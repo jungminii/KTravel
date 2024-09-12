@@ -411,8 +411,8 @@ https://dev.msaez.io/#/142835195/storming/travel
      - 각 Aggregate가 CRUD될 때 ReadModel도 변하도록 설계하여 성능 이슈를 예방할 수 있다.
      - 예시 비동기식으로 처리되어 발행된 이벤트 기반 Kafka 를 통해 수신/처리 되어 별도 Table 에 관리한다
 
-   **2.2 API 게이트웨이**
-      1. gateway 스프링부트 App을 추가 후 application.yaml내에 각 마이크로 서비스의 routes 를 추가하고 gateway 서버의 포트를 8088 으로 설정
+   **2.2 API 게이트웨이**    
+      2.2.1. gateway 스프링부트 App을 추가 후 application.yaml내에 각 마이크로 서비스의 routes 를 추가하고 gateway 서버의 포트를 8088 으로 설정
        
           - application.yaml 예시
             ```
@@ -434,7 +434,9 @@ https://dev.msaez.io/#/142835195/storming/travel
 
             ```
 
-      2. Kubernetes용 Deployment.yaml 을 작성하고 Kubernetes에 Deploy를 생성함
+<br/>
+
+      2.2.2. Kubernetes용 Deployment.yaml 을 작성하고 Kubernetes에 Deploy를 생성함
           - Deployment.yaml 예시
           
 
