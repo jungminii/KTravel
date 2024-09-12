@@ -417,7 +417,8 @@ https://dev.msaez.io/#/142835195/storming/travel
      **(1) gateway 스프링부트 App을 추가 후 application.yaml내에 각 마이크로 서비스의 routes 를 추가하고 gateway 서버의 포트를 8088 으로 설정**
        
           - application.yaml 예시
-            ```
+	  
+```
       spring:
         profiles: default
         cloud:
@@ -433,15 +434,15 @@ https://dev.msaez.io/#/142835195/storming/travel
                   - Path=/members/** 
               - id: notification
                 uri: http://localhost:8084
-
-            ```
+ ```
 
 <br/>
 
     **(2) Kubernetes용 Deployment.yaml을 작성하고, Kubernetes에 Deploy를 생성함**
 
           - Deployment.yaml 예시
-            ```
+	  
+```
       apiVersion: apps/v1
       kind: Deployment
       metadata:
@@ -457,7 +458,7 @@ https://dev.msaez.io/#/142835195/storming/travel
           metadata:
             labels:
               app: plan
-            ```
+```
 
 **2.3 Kafka를 사용한 비동기 통신**  
      - 알람 (Notification) 생성과 여행 계획 AI 추천 생성 시에 Kafka를 사용한 비동기 통신이 이루어진다.    
