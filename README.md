@@ -398,41 +398,39 @@ https://dev.msaez.io/#/142835195/storming/travel
    - @@@@@ Azure DevOps를 활용한 CI/CD 파이프라인 구축
 
 ### 2. 백엔드 마이크로서비스 개발
-이전 단계에서 도출된 OOOOO 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 Spring Boot로 구현하였다.    
-구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 808n 이다)
+이전 단계에서 도출된 아키텍처에 따라, 각 BC별로 대변되는 마이크로 서비스들을 Spring Boot로 구현하였다.    
+구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 8086 이다)
 
 ```
    mvn spring-boot:run
 ```  
    
    **2.1 CQRS**  
-   - 예시 숙소(Room) 의 사용가능 여부, 리뷰 및 예약/결재 등 총 Status 에 대하여 고객(Customer)이 조회 할 수 있도록 CQRS 로 구현하였다.
-     - 예시 room, review, reservation, payment 개별 Aggregate Status 를 통합 조회하여 성능 Issue 를 사전에 예방할 수 있다.
+   - 팔로우 (Follow) 여부를 조회하여 팔로우 관계에 따라 알람 (Notification)을 보내기 위해 CQRS를 구현하였다.
+     - 사용자 (Member) 정보를 조회하여 알람 메세지에 들어갈 사용자 이름을 추출하기 위해 CQRS를 구현하였다.
+     - 각 Aggregate가 CRUD될 때 ReadModel도 변하도록 설계하여 성능 이슈를 예방할 수 있다.
      - 예시 비동기식으로 처리되어 발행된 이벤트 기반 Kafka 를 통해 수신/처리 되어 별도 Table 에 관리한다
-     - 예시 Table 모델링 (ROOMVIEW)
-
-  ![image](https://user-images.githubusercontent.com/77129832/119319352-4b198c00-bcb5-11eb-93bc-ff0657feeb9f.png)
-     - viewpage MSA ViewHandler 를 통해 구현 ("RoomRegistered" 이벤트 발생 시, Pub/Sub 기반으로 별도 Roomview 테이블에 저장)
 
    **2.2 API 게이트웨이**
-      1. gateway 스프링부트 App을 추가 후 application.yaml내에 각 마이크로 서비스의 routes 를 추가하고 gateway 서버의 포트를 8080 으로 설정
+      1. gateway 스프링부트 App을 추가 후 application.yaml내에 각 마이크로 서비스의 routes 를 추가하고 gateway 서버의 포트를 8088 으로 설정
        
           - application.yaml 예시
             ```
-            spring:
-              profiles: docker
-              cloud:
-                gateway:
-                  routes:
-                    - id: payment
-                      uri: http://payment:8080
-                      predicates:
-                        - Path=/payments/** 
-                    - id: room
-                      uri: http://room:8080
-                      predicates:
-                        - Path=/rooms/**, /reviews/**, /check/**
-                    - id: reservation
+      spring:
+        profiles: default
+        cloud:
+          gateway:
+            routes:
+              - id: plan
+                uri: http://localhost:8082
+                predicates:
+                  - Path=/plans/** 
+              - id: member
+                uri: http://localhost:8083
+                predicates:
+                  - Path=/members/** 
+              - id: notification
+                uri: http://localhost:8084
 
             ```
 
@@ -441,21 +439,36 @@ https://dev.msaez.io/#/142835195/storming/travel
           
 
             ```
-            apiVersion: apps/v1
-            kind: Deployment
-            metadata:
-              name: gateway
-              namespace: airbnb
-              labels:
-                app: gateway
-            spec:
-              replicas: 1
-              selector:
-                matchLabels:
-                  app: gateway
-            
-![image](https://user-images.githubusercontent.com/80744273/119321943-1d821200-bcb8-11eb-98d7-bf8def9ebf80.png)
-	    
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: plan
+        labels:
+          app: plan
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app: plan
+        template:
+          metadata:
+            labels:
+              app: plan
+
+**2.3 Kafka를 사용한 비동기 통신**  
+     - 알람 (Notification) 생성과 여행 계획 AI 추천 생성 시에 Kafka를 사용한 비동기 통신이 이루어진다.
+     - AI 추천 생성 요청 -> 사용자가 보유한 토큰 개수 확인 및 Decrease 작업 -> 실제로 외부 API와 통신하여 AI 추천 생성 완료
+     ![image](https://github.com/user-attachments/assets/4aa8692a-12c4-47c1-af1d-4343dbf54e91)
+     - 보유한 토큰양이 요구되는 토큰양보다 모자라면 TokenDecreasingFailed 이벤트가 발생하여 AI 추천 생성 Policy를 생성시키지 않도록 했다. (보상 트랜잭션)
+
+
+**2.4 OpenAi API 연결**  
+     - create recommendation policy에서 OpenAI API와 연동하여 사용자가 작성한 여행 계획 (Plan)을 기반으로 AI의 심화된 추천 내용을 작성한다.
+     - 후카츠 프롬프트 형식으로 추천 생성용 프롬프트를 작성하여 보다 나은 출력물을 기대할 수 있게끔 설계했다.
+     ![image](https://github.com/user-attachments/assets/aee012e0-6683-414c-9570-5ea6d306770a)
+     - 성공적으로 AI 추천이 생성되면 RecommendationCreated 이벤트를 발생시켜 AI 추천 생성 트랜잭션을 마무리한다.
+
+<br/>
 
 ### 3. 프론트엔드
 -  
