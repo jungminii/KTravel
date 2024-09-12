@@ -438,10 +438,9 @@ https://dev.msaez.io/#/142835195/storming/travel
 
 <br/>
     **(2) Kubernetes용 Deployment.yaml을 작성하고, Kubernetes에 Deploy를 생성함**
-        
-          - Deployment.yaml 예시
-          
+    **강조**
 
+          - Deployment.yaml 예시
             ```
       apiVersion: apps/v1
       kind: Deployment
