@@ -437,8 +437,8 @@ https://dev.msaez.io/#/142835195/storming/travel
             ```
 
 <br/>
+
     **(2) Kubernetes용 Deployment.yaml을 작성하고, Kubernetes에 Deploy를 생성함**
-    **강조**
 
           - Deployment.yaml 예시
             ```
@@ -457,6 +457,7 @@ https://dev.msaez.io/#/142835195/storming/travel
           metadata:
             labels:
               app: plan
+            ```
 
 **2.3 Kafka를 사용한 비동기 통신**  
      - 알람 (Notification) 생성과 여행 계획 AI 추천 생성 시에 Kafka를 사용한 비동기 통신이 이루어진다.    
