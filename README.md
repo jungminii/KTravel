@@ -1,5 +1,6 @@
 <div style="text-align: center;">
-  <img src="https://raw.githubusercontent.com/KT-HOO/KTravel/main/img/Ktravel.png" width="330" height="240" />
+  <img src="https://github.com/user-attachments/assets/e4f51055-71d2-451b-babb-17fb199a9995" width="30%" height="30%" />
+
 </div>
 
 
@@ -251,28 +252,28 @@ https://dev.msaez.io/#/142835195/storming/travel
 
    **1.1 Evnet 도출**    
    
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_01.png" width="500" height="400" />    
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_01.png" width="80%"/>    
 
     - 여행계획 생성 및 공유 서비스에 적합한 이벤트 도출
     - 서비스에 적합하지 않은 이벤트 삭제
 
    **1.2 Actor 식별, Command 부착**    
    
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_02.png" width="500" height="400" />    
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_02.png" width="100%"/>    
 
     - 서비스의 주요 액터로 'member' 식별
     - 각 서비스 영역에 해당하는 커맨드를 부착
     
    **1.3 Aggregate 으로 묶기**    
    
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_03.png" width="500" height="400" />  
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_03.png" width="100%"/>  
 
     - 연관된 엔터티와 이벤트를 묶어 어그리게잇 형성
     - 총 5개(Member, Plan, Follow, Like, Notofication)의 어그리게잇 도출
 
    **1.4 Domain 서열 분리, Bounded Context로 묶기**    
    
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_04.png" width="500" height="400" />  
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_04.png" width="100%"/>  
   
 (1) Core Domain: 비즈니스의 핵심 가치를 제공하는 영역      
   - member    
@@ -306,7 +307,7 @@ https://dev.msaez.io/#/142835195/storming/travel
    
    **1.5 Policy, Read Model 부착 및 컨택스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)**     
    
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="100%"/>
 
     - 비즈니스 처리 로직에 따라 폴리시를 배치
     - 통신은 이벤트 기반의 비동기 방식(Pub/Sub)으로 설계
@@ -314,7 +315,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 
    **1.6 완성된 1차 모형에 대한 기능적 요구사항 검증**
 
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_06.png" width="500" height="400" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_06.png" width="100%"/>
 
     - 사용자는 구글 또는 네이버 계정을 통해 회원가입 및 로그인이 가능해야 한다. 🆗
     - 사용자는 충전/결제 시스템을 통해 토큰을 획득할 수 있어야 한다. 🆗
@@ -341,7 +342,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 
    **1.7 완성된 1차 모형에 대한 비기능적 요구사항 검증**
 
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_06.png" width="500" height="400" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_06.png" width="100%"/>
 
     - 사용자 토큰 사용, 여행 계획 생성/수정/삭제 등의 트랜잭션이 중단되지 않고 일관성을 유지해야 한다. 🆗
     - 분산 트랜잭션 처리 메커니즘을 통해 이를 보장한다. 🆗
@@ -360,7 +361,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 
    **1.8 모형 수정 및 최종 모형 도출**    
    
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="500" height="400" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_05.png" width="100%"/>
 
     -  알림(Notification) 기능-팔로우 알림
       - 팔로우한 사용자가 계획을 생성할 경우, 팔로워에게 시스템에서 알림을 발송한다. ❌
@@ -370,7 +371,7 @@ https://dev.msaez.io/#/142835195/storming/travel
 <br/>
 
 ### 2. 헥사고날 아키텍처 다이어그램 도출
-<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_kafka.png" width="950" height="460" />
+<img src="https://github.com/KT-HOO/KTravel/blob/main/img/0911_kafka.png" width="100%"/>
 
     - 각 서비스는 Kafka Publisher와 Kafka Listener를 통해 이벤트를 송신하고 수신 (느슨한 결합 및 확장성 확보)
     - 'Plan' 서비스는 Kafka 외에 REST 기반 통신을 사용하여 다른 시스템과 데이터를 주고 받음
@@ -468,17 +469,54 @@ https://dev.msaez.io/#/142835195/storming/travel
   
 ## VI. 클라우드(Azure) 배포
 
-- Docker 이미지 생성 및 최적화:
-  - 각 마이크로서비스는 Docker 컨테이너로 패키징되어야 합니다. Docker 이미지는 최소화된 사이즈로 최적화되도록 관리합니다(예: 멀티 스테이지 빌드를 사용하여 불필요한 파일을 제거).
-- Docker Hub 배포:
-  - 생성한 Docker 이미지를 Docker Hub에 배포하여, 이를 Kubernetes나 다른 클라우드 플랫폼에서 사용할 수 있도록 준비합니다.
-- Kubernetes(K8S) 배포:
-  - Kubernetes를 활용하여 클러스터 환경에 마이크로서비스를 배포합니다. 특히 Azure Kubernetes Service(AKS) 또는 다른 클라우드 기반 Kubernetes 솔루션을 사용하여, 클러스터를 자동으로 확장하고 관리할 수 있는 설정을 적용합니다.
- 
+- Azure 리소스 그룹 및 AKS(Azure Kubernetes Service) 클러스터 생성<br/>
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/248daa26-093c-4e3f-9e66-491a66a458e5"><br/>
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/7c1f886d-fb3b-47d2-bc7b-9c17c68ba96f"><br/>
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/292f5c03-5c6b-46b1-b62a-74658961f969"><br/>
+  <br/>
 
-### 2. 여행 계획(Plan) 생성/수정/삭제, 추천(Recommendation)     
-   **2.1 여행 계획 생성**  
-   - 사용자는 목적지(location), 날짜(travelDate), 예산(budget), 인원수(groupSize), 세부 활동(details) 등의 상세 내용을 포함한 여행 계획을 생성할 수 있어야 한다.
-   - 목적지(lacation), 날짜(travelDate), 인원수(groupSize)는 필수적으로 입력되야 한다.
-     - 
-   
+- 각각의 서비스 별(bounded context) maven 빌드 후 jar 패키징파일 생성<br/>
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/e4996ab2-6b49-4f02-b2f3-2fa342cd46a4">
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/4155affa-4b94-4b74-b4da-084481418636">
+  ```
+  (main) $ cd follow
+  (main) $ mvn package -B -Dmaven.test.skip=true
+  ```
+  <br/>
+  
+- 패키징한 jar 파일을 통한 docker image build 및 docker hub에 push<br/>
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ec43afdc-b8e7-4f72-8527-253235f35751">
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/ec7385cb-9adb-48f9-ba34-70f812f48d74">
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/3a3f0480-b320-494b-af9e-805213b89f00">
+  ```
+  (main) $ docker login
+  (main) $ docker build -t gbgb45/follow:240912 .
+  (main) $ docker push gbgb45/follow:240912
+  ```
+  <br/>
+
+- Helm 패키지를 통한 클러스터에 Event Store(kafka) 설치<br/>
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/1e610341-c7ff-48f1-9507-070426163f66">
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/da8d5252-42a8-4fa2-8af6-6494aedb4b1b">
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/f2291260-be63-4306-a691-ea312873335e">
+  ```
+  (main) $ helm repo add bitnami https://charts.bitnami.com/bitnami
+  (main) $ helm repo update
+  (main) $ helm install my-kafka bitnami/kafka –verison 23.0.5
+  ```
+  <br/>
+
+- 각각의 서비스 및 게이트웨이의 deployment.yaml, service.yaml파일을 통한 배포<br/>
+  <img width="55%" alt="image" src="https://github.com/user-attachments/assets/b7cb17c6-44ae-49ab-a668-125d9708f5fb">
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/bf46bc28-031e-4fbb-98b3-9f866dd7faf2">
+  <img width="70%" alt="image" src="https://github.com/user-attachments/assets/c7cd32fc-4c70-4696-a008-4f15b6679e30">
+  ```
+  (main) $ kubectl apply -f kubernetes/deployment.yaml
+  (main) $ kubectl apply -f kubernetes/service.yaml
+  ```
+  <br/>
+
+
+
+
+
